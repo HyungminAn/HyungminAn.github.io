@@ -1,0 +1,20 @@
+---
+layout: page
+---
+
+{%- comment -%}
+  토픽(카테고리)별 게시판 페이지. front matter에 `topic: <id>`를 지정하면
+  _data/topics.yml 의 정보와 해당 category 를 가진 글 목록을 보여줍니다.
+{%- endcomment -%}
+{% assign topic = site.data.topics | where: "id", page.topic | first %}
+{% assign topic_posts = site.categories[page.topic] %}
+
+{% if topic.description %}<p class="lead">{{ topic.description }}</p>{% endif %}
+
+{{ content }}
+
+<div id="full-tags-list">
+  {% include post-list.html posts=topic_posts %}
+</div>
+
+<p><a href="{{ '/board' | relative_url }}">&larr; 전체 게시판</a></p>

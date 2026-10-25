@@ -1,0 +1,15 @@
+# 게시판 토픽 목록
+# - id: 글의 front matter에 쓰는 category 값 (영문 소문자/하이픈 권장)
+# - name: 화면에 보이는 이름
+# - description: 토픽 페이지 상단 설명
+# 토픽을 추가하면 board/<id>.md 파일도 하나 만들어 주세요.
+
+- id: research
+  name: 연구
+  description: 연구 주제, 논문 리뷰, 실험 기록
+- id: dev
+  name: 개발
+  description: 프로그래밍, 도구, 트러블슈팅 기록
+- id: daily
+  name: 일상
+  description: 생각, 회고, 여행 등 일상 기록

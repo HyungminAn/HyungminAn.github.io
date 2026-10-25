@@ -19,12 +19,15 @@ author: HyungminAn
 # --- List of links in the navigation bar --- #
 ###############################################
 
+# 토픽을 추가하면 Board 아래에도 한 줄 추가하세요 (_data/topics.yml, board/<id>.md 와 함께)
 navbar-links:
   About Me: "aboutme"
-  Resources:
-    - Beautiful Jekyll: "https://beautifuljekyll.com"
-    - Learn markdown: "https://www.markdowntutorial.com/"
-  Author's home: "https://deanattali.com"
+  Contact: "contact"
+  Board:
+    - 전체: "board"
+    - 연구: "board/research"
+    - 개발: "board/dev"
+    - 일상: "board/daily"
 
 ################
 # --- Logo --- #
@@ -50,14 +53,9 @@ round-avatar: true
 # You can change the order that they show up on the page by changing the order here.
 # Uncomment the links you want to show and add your information to each one.
 social-network-links:
-  email: "someone@example.com"
+#  email: "your.email@example.com"   # TODO: 실제 이메일로 바꾸고 주석 해제
   rss: true  # remove this line if you don't want to show an RSS link at the bottom
-  facebook: deanattali
-  github: daattali
-  twitter: daattali
-  patreon: DeanAttali
-  youtube: "@daattali"
-  whatsapp: 15551212
+  github: HyungminAn
 #  medium: yourname
 #  reddit: yourname or r/yoursubreddit
 #  linkedin: daattali
@@ -86,7 +84,7 @@ social-network-links:
 
 # If you want your website to generate an RSS feed, provide a description
 # The URL for the feed will be https://<your_website>/feed.xml
-rss-description: This website is a virtual proof that I'm awesome
+rss-description: HyungminAn의 개인 홈페이지
 
 ###########################
 # --- General options --- #
@@ -102,7 +100,7 @@ share-links-active:
 
 # How to display the link to your website in the footer
 # Remove this if you don't want a link in the footer
-url-pretty: "MyWebsite.com"
+url-pretty: "hyungminan.github.io"
 
 # Add the website title to the title of every page
 title-on-all-pages: true
@@ -250,7 +248,10 @@ footer-hover-col: "#0085A1"
 ################
 
 # Ruby Date Format to show dates of posts
-date_format: "%B %-d, %Y"
+date_format: "%Y-%m-%d"
+
+# 페이지 언어 (<html lang>)
+language: "ko"
 
 # Facebook App ID
 #fb_app_id: ""
@@ -260,7 +261,7 @@ date_format: "%B %-d, %Y"
 #################################################################################
 
 # Output options (more information on Jekyll's site)
-timezone: "America/Toronto"
+timezone: "Asia/Seoul"
 markdown: kramdown
 highlighter: rouge
 permalink: /:year-:month-:day-:title/

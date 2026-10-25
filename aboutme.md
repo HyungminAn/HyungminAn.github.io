@@ -1,16 +1,31 @@
 ---
 layout: page
-title: About me
-subtitle: Why you'd want to go on a date with me
+title: About Me
+subtitle: 자기소개
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+<!-- TODO: 아래 내용을 본인 소개로 바꾸세요. -->
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+안녕하세요, **HyungminAn** 입니다. 한두 문장으로 자신을 소개해 주세요.
 
-What else do you need?
+### 관심 분야
 
-### My story
+- 관심 분야 1
+- 관심 분야 2
 
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](https://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+### 경력
+
+| 기간 | 소속 | 역할 |
+|---|---|---|
+| 20XX – 현재 | 소속 기관 | 직함 |
+| 20XX – 20XX | 소속 기관 | 직함 |
+
+### 학력
+
+- **20XX** 학교 이름, 전공 (학위)
+
+### 기술 스택
+
+`Python` `Git` `...`
+
+더 궁금한 점은 [Contact](/contact) 페이지를 참고해 주세요.

@@ -1,0 +1,16 @@
+{%- comment -%}
+  간단한 글 목록. 사용법: {% include post-list.html posts=some_posts %}
+{%- endcomment -%}
+{% assign date_format = site.date_format | default: "%B %-d, %Y" %}
+<div class="post-list">
+  {%- for post in include.posts -%}
+    <div class="tag-entry">
+      <a href="{{ post.url | relative_url }}">{{- post.title | strip_html -}}</a>
+      <div class="entry-date">
+        <time datetime="{{- post.date | date_to_xmlschema -}}">{{- post.date | date: date_format -}}</time>
+      </div>
+    </div>
+  {%- else -%}
+    <p class="text-muted">아직 글이 없습니다.</p>
+  {%- endfor -%}
+</div>

@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>홈페이지 업데이트 가이드</title>
+<style>
+  :root {
+    --bg: #fafaf9; --surface: #ffffff; --text: #1f2328; --muted: #5f6670;
+    --border: #e3e3e0; --accent: #0b6bcb; --accent-soft: #e8f1fb;
+    --code-bg: #f3f3f1; --warn-bg: #fff6e0; --warn-border: #e9b949;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141517; --surface: #1c1d20; --text: #e6e6e3; --muted: #9aa0a8;
+      --border: #2e3035; --accent: #6cb1f5; --accent-soft: #1d2a3a;
+      --code-bg: #24262a; --warn-bg: #2d2717; --warn-border: #a6852f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141517; --surface: #1c1d20; --text: #e6e6e3; --muted: #9aa0a8;
+    --border: #2e3035; --accent: #6cb1f5; --accent-soft: #1d2a3a;
+    --code-bg: #24262a; --warn-bg: #2d2717; --warn-border: #a6852f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.7 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", "Segoe UI", sans-serif;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 16px 80px; display: grid; grid-template-columns: 220px 1fr; gap: 40px; }
+  nav.toc { position: sticky; top: 24px; align-self: start; font-size: 14px; }
+  nav.toc strong { display: block; color: var(--muted); font-size: 12px; letter-spacing: .06em; margin-bottom: 8px; }
+  nav.toc a { display: block; padding: 4px 0; color: var(--muted); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); }
+  main { min-width: 0; }
+  header h1 { margin: 0 0 4px; font-size: 30px; }
+  header p { margin: 0 0 32px; color: var(--muted); }
+  section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-bottom: 20px; }
+  h2 { margin: 0 0 12px; font-size: 20px; display: flex; align-items: baseline; gap: 10px; }
+  h2 .num { color: var(--accent); font-variant-numeric: tabular-nums; }
+  h3 { font-size: 16px; margin: 20px 0 8px; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13.5px; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+  pre { background: var(--code-bg); border-radius: 8px; padding: 12px 14px; overflow-x: auto; margin: 8px 0 12px; }
+  pre code { background: none; padding: 0; font-size: 13px; line-height: 1.6; }
+  .file { display: inline-block; font-size: 12px; color: var(--muted); margin-bottom: -4px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; margin: 8px 0; }
+  .table-scroll { overflow-x: auto; }
+  th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 13px; }
+  .note { background: var(--accent-soft); border-radius: 8px; padding: 10px 14px; font-size: 14.5px; margin: 10px 0; }
+  .warn { background: var(--warn-bg); border-left: 3px solid var(--warn-border); border-radius: 6px; padding: 10px 14px; font-size: 14.5px; margin: 10px 0; }
+  .steps { counter-reset: step; list-style: none; padding: 0; margin: 0; }
+  .steps > li { counter-increment: step; position: relative; padding-left: 36px; margin-bottom: 14px; }
+  .steps > li::before { content: counter(step); position: absolute; left: 0; top: 1px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: var(--surface); font-size: 13px; font-weight: 700; display: grid; place-items: center; }
+  ul.check { list-style: none; padding: 0; margin: 0; }
+  ul.check li { padding: 6px 0; border-bottom: 1px dashed var(--border); }
+  ul.check input { margin-right: 8px; accent-color: var(--accent); }
+  a { color: var(--accent); }
+  @media (max-width: 760px) {
+    .wrap { grid-template-columns: 1fr; gap: 0; }
+    nav.toc { position: static; margin-bottom: 20px; }
+    section { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="toc">
+    <strong>목차</strong>
+    <a href="#structure">1. 사이트 구성</a>
+    <a href="#about">2. 자기소개</a>
+    <a href="#contact">3. 연락처</a>
+    <a href="#post">4. 새 글 쓰기</a>
+    <a href="#topic">5. 토픽 추가/변경</a>
+    <a href="#config">6. 사이트 설정</a>
+    <a href="#local">7. 로컬 미리보기</a>
+    <a href="#deploy">8. 배포</a>
+    <a href="#checklist">9. 체크리스트</a>
+  </nav>
+
+  <main>
+    <header>
+      <h1>홈페이지 업데이트 가이드</h1>
+      <p>HyungminAn.github.io (Beautiful Jekyll) · 같은 내용의 Markdown 버전: <code>docs/UPDATE_GUIDE.md</code></p>
+    </header>
+
+    <section id="structure">
+      <h2><span class="num">1</span> 사이트 구성 한눈에 보기</h2>
+      <div class="table-scroll">
+      <table>
+        <tr><th>메뉴</th><th>URL</th><th>수정할 파일</th></tr>
+        <tr><td>홈 (최근 글)</td><td><code>/</code></td><td><code>index.html</code> (제목/부제만)</td></tr>
+        <tr><td>About Me</td><td><code>/aboutme</code></td><td><code>aboutme.md</code></td></tr>
+        <tr><td>Contact</td><td><code>/contact</code></td><td><code>contact.md</code>, <code>_config.yml</code> 의 <code>social-network-links</code></td></tr>
+        <tr><td>Board (전체)</td><td><code>/board</code></td><td><code>board.html</code> (보통 수정 불필요)</td></tr>
+        <tr><td>Board › 토픽</td><td><code>/board/&lt;id&gt;/</code></td><td><code>board/&lt;id&gt;.md</code></td></tr>
+        <tr><td>글</td><td><code>/YYYY-MM-DD-제목/</code></td><td><code>_posts/YYYY-MM-DD-제목.md</code></td></tr>
+      </table>
+      </div>
+<pre><code>.
+├── _config.yml               # 사이트 전체 설정 (제목, 메뉴, 소셜 링크, 색상 …)
+├── _data/topics.yml          # 게시판 토픽 목록
+├── _layouts/topic.html       # 토픽별 게시판 레이아웃
+├── _includes/post-list.html  # 게시판 글 목록 조각
+├── _posts/                   # 글 (Markdown)
+├── board.html                # 게시판 전체 페이지
+├── board/                    # 토픽별 페이지 (research.md, dev.md, daily.md)
+├── aboutme.md                # 자기소개
+├── contact.md                # 연락처
+├── index.html                # 홈 (최근 글 목록)
+└── assets/img/               # 이미지</code></pre>
+      <div class="note"><code>docs/</code> 폴더는 <code>_config.yml</code> 의 <code>exclude</code> 에 있어서 실제 홈페이지에는 노출되지 않습니다.</div>
+    </section>
+
+    <section id="about">
+      <h2><span class="num">2</span> 자기소개 수정 — <code>aboutme.md</code></h2>
+      <p>위쪽 <code>---</code> 사이(front matter)는 페이지 제목/부제, 그 아래가 본문입니다.</p>
+      <span class="file">aboutme.md</span>
+<pre><code>---
+layout: page
+title: About Me
+subtitle: 자기소개
+---
+
+안녕하세요, **HyungminAn** 입니다. ...
+
+### 관심 분야
+- ...</code></pre>
+      <ul>
+        <li><code>&lt;!-- TODO ... --&gt;</code> 로 표시된 부분을 실제 내용으로 바꾸세요.</li>
+        <li>프로필 사진: <code>assets/img/avatar-icon.png</code> 교체 또는 <code>_config.yml</code> 의 <code>avatar:</code> 경로 변경.</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2><span class="num">3</span> 연락처 수정</h2>
+      <h3>3-1. Contact 페이지 본문</h3>
+      <span class="file">contact.md</span>
+<pre><code>- &lt;i class="fas fa-envelope"&gt;&lt;/i&gt; **Email**: [me@example.com](mailto:me@example.com)
+- &lt;i class="fab fa-github"&gt;&lt;/i&gt; **GitHub**: [github.com/HyungminAn](https://github.com/HyungminAn)</code></pre>
+      <p>아이콘은 <a href="https://fontawesome.com/search?ic=free">Font Awesome</a> 이름을 씁니다 (<code>fas fa-…</code>, <code>fab fa-…</code>).</p>
+      <h3>3-2. 모든 페이지 하단(footer) 아이콘</h3>
+      <span class="file">_config.yml</span>
+<pre><code>social-network-links:
+  email: "me@example.com"    # 주석(#)을 지우면 footer 에 표시됨
+  rss: true
+  github: HyungminAn
+#  linkedin: your-id
+#  google-scholar: your-id</code></pre>
+      <div class="warn">이메일은 현재 예시 값(<code>your.email@example.com</code>)이고 footer 에서는 주석 처리되어 있습니다. 공개해도 되는 주소로 바꿔 주세요.</div>
+    </section>
+
+    <section id="post">
+      <h2><span class="num">4</span> 게시판에 새 글 쓰기 — <code>_posts/</code></h2>
+      <h3>4-1. 파일 만들기</h3>
+      <p><code>_posts/</code> 에 <strong><code>YYYY-MM-DD-영문-제목.md</code></strong> 형식으로 파일을 만듭니다.</p>
+<pre><code>_posts/2026-11-01-my-first-paper-review.md</code></pre>
+      <ul>
+        <li>날짜가 파일명에 꼭 있어야 합니다.</li>
+        <li>제목 부분이 URL 이 되므로 영문/숫자/하이픈을 권장합니다.</li>
+        <li><strong>미래 날짜</strong>의 글은 기본적으로 빌드되지 않습니다.</li>
+      </ul>
+      <h3>4-2. Front matter 작성</h3>
+<pre><code>---
+title: 논문 리뷰 - Attention Is All You Need
+subtitle: Transformer 정리            # 선택
+category: research                    # 게시판 토픽 id (필수)
+tags: [paper, nlp]                    # 선택 — /tags 페이지에 모임
+cover-img: /assets/img/path.jpg       # 선택 — 상단 큰 이미지
+thumbnail-img: /assets/img/thumb.png  # 선택 — 목록 썸네일
+mathjax: true                         # 선택 — 수식 사용 시
+---
+
+본문은 Markdown 으로 작성합니다.</code></pre>
+      <div class="table-scroll">
+      <table>
+        <tr><th>키</th><th>설명</th></tr>
+        <tr><td><code>category</code></td><td>어떤 게시판(토픽)에 올라갈지. <code>research</code> / <code>dev</code> / <code>daily</code> 중 하나</td></tr>
+        <tr><td><code>tags</code></td><td>토픽과 별개의 키워드. 여러 개 가능</td></tr>
+        <tr><td><code>layout</code></td><td>생략 가능 (글은 자동으로 <code>post</code>)</td></tr>
+      </table>
+      </div>
+      <h3>4-3. 본문 팁</h3>
+      <ul>
+        <li>이미지: <code>assets/img/</code> 에 넣고 <code>![설명](/assets/img/파일명.png)</code></li>
+        <li>코드 블록: <code>```python</code> … <code>```</code></li>
+        <li>강조 박스: 문단 바로 위에 <code>{: .box-note}</code> (<code>.box-warning</code>, <code>.box-error</code>, <code>.box-success</code>)</li>
+        <li>예시 글: <code>_posts/2026-10-24-markdown-cheatsheet.md</code></li>
+      </ul>
+      <h3>4-4. 글 수정 / 삭제</h3>
+      <ul>
+        <li>수정: 해당 <code>.md</code> 파일을 고치고 push</li>
+        <li>삭제: 해당 <code>.md</code> 파일을 지우고 push</li>
+        <li>예시 글 2개(<code>2026-10-24-markdown-cheatsheet.md</code>, <code>2026-10-25-welcome.md</code>)는 지워도 됩니다.</li>
+      </ul>
+    </section>
+
+    <section id="topic">
+      <h2><span class="num">5</span> 게시판 토픽 추가 / 변경</h2>
+      <p>예: <strong><code>paper</code>(논문)</strong> 토픽 추가 — 3군데를 수정합니다.</p>
+      <ol class="steps">
+        <li><code>_data/topics.yml</code> 에 항목 추가
+<pre><code>- id: paper
+  name: 논문
+  description: 읽은 논문 정리</code></pre></li>
+        <li><code>board/paper.md</code> 파일 생성
+<pre><code>---
+layout: topic
+title: 논문
+topic: paper
+permalink: /board/paper/
+---</code></pre></li>
+        <li><code>_config.yml</code> 의 메뉴에 추가
+<pre><code>navbar-links:
+  About Me: "aboutme"
+  Contact: "contact"
+  Board:
+    - 전체: "board"
+    - 연구: "board/research"
+    - 개발: "board/dev"
+    - 일상: "board/daily"
+    - 논문: "board/paper"     # 추가</code></pre></li>
+      </ol>
+      <p>이후 글에서 <code>category: paper</code> 를 쓰면 해당 게시판에 표시됩니다.</p>
+      <ul>
+        <li><strong>이름만 변경</strong>: <code>topics.yml</code> 의 <code>name</code>, <code>board/&lt;id&gt;.md</code> 의 <code>title</code>, 메뉴 이름.</li>
+        <li><strong>토픽 삭제</strong>: 위 3군데에서 지우고, 그 토픽을 쓰던 글의 <code>category</code> 도 변경.</li>
+        <li><code>id</code> 는 영문 소문자 (글의 <code>category</code> 값과 정확히 같아야 함).</li>
+      </ul>
+    </section>
+
+    <section id="config">
+      <h2><span class="num">6</span> 사이트 전체 설정 — <code>_config.yml</code></h2>
+      <div class="table-scroll">
+      <table>
+        <tr><th>항목</th><th>설명</th></tr>
+        <tr><td><code>title</code>, <code>author</code></td><td>사이트 이름, footer 이름</td></tr>
+        <tr><td><code>navbar-links</code></td><td>상단 메뉴</td></tr>
+        <tr><td><code>avatar</code></td><td>상단 프로필 이미지</td></tr>
+        <tr><td><code>social-network-links</code></td><td>footer 소셜 아이콘</td></tr>
+        <tr><td><code>page-col</code>, <code>link-col</code>, <code>navbar-col</code> …</td><td>색상</td></tr>
+        <tr><td><code>date_format</code></td><td>날짜 표시 형식 (현재 <code>%Y-%m-%d</code>)</td></tr>
+        <tr><td><code>timezone</code>, <code>language</code></td><td><code>Asia/Seoul</code>, <code>ko</code></td></tr>
+        <tr><td><code>giscus</code> / <code>utterances</code></td><td>댓글 기능 (주석 해제 후 설정)</td></tr>
+      </table>
+      </div>
+      <div class="note"><code>_config.yml</code> 은 <code>jekyll serve</code> 실행 중에 자동 반영되지 않습니다. 수정 후 서버를 재시작하세요.</div>
+    </section>
+
+    <section id="local">
+      <h2><span class="num">7</span> 로컬에서 미리보기 <span style="color:var(--muted);font-size:14px;font-weight:400">(선택)</span></h2>
+      <p>Ruby 3.x 가 설치되어 있어야 합니다.</p>
+<pre><code>bundle install
+bundle exec jekyll serve
+# → http://localhost:4000 에서 확인</code></pre>
+    </section>
+
+    <section id="deploy">
+      <h2><span class="num">8</span> 배포</h2>
+      <p>GitHub Pages 가 저장소의 기본 브랜치를 자동으로 빌드합니다.</p>
+<pre><code>git add .
+git commit -m "Add new post"
+git push</code></pre>
+      <ul>
+        <li>처음 한 번: 저장소 <strong>Settings → Pages → Build and deployment</strong> 에서 Source 를 <strong>Deploy from a branch</strong>, 브랜치를 <code>master</code> / <code>/ (root)</code> 로 지정.</li>
+        <li>push 후 1~2분 뒤 <code>https://hyungminan.github.io</code> 에 반영됩니다.</li>
+        <li>GitHub 웹에서 파일을 직접 편집(연필 아이콘)하고 Commit 해도 똑같이 반영됩니다.</li>
+      </ul>
+    </section>
+
+    <section id="checklist">
+      <h2><span class="num">9</span> 처음에 채워야 할 체크리스트</h2>
+      <ul class="check">
+        <li><label><input type="checkbox"><code>aboutme.md</code> — 소개, 관심 분야, 경력, 학력</label></li>
+        <li><label><input type="checkbox"><code>contact.md</code> — 이메일, LinkedIn 등 실제 값</label></li>
+        <li><label><input type="checkbox"><code>_config.yml</code> — <code>social-network-links</code> 의 <code>email</code> 주석 해제 및 값 입력</label></li>
+        <li><label><input type="checkbox"><code>assets/img/avatar-icon.png</code> — 프로필 사진 교체</label></li>
+        <li><label><input type="checkbox"><code>_data/topics.yml</code> — 원하는 토픽으로 조정 (메뉴, <code>board/*.md</code> 도 함께)</label></li>
+        <li><label><input type="checkbox">예시 글 삭제 후 첫 글 작성</label></li>
+      </ul>
+    </section>
+  </main>
+</div>
+</body>
+</html>

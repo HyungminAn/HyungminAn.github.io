@@ -1,0 +1,22 @@
+---
+layout: page
+title: 게시판
+subtitle: 토픽별로 정리한 글
+---
+
+{%- for topic in site.data.topics -%}
+  {%- assign topic_posts = site.categories[topic.id] -%}
+  <a href="#{{- topic.id -}}" class="btn btn-primary tag-btn"><i class="fas fa-folder" aria-hidden="true"></i>&nbsp;{{- topic.name -}}&nbsp;({{ topic_posts.size | default: 0 }})</a>
+{%- endfor -%}
+
+<div id="full-tags-list">
+{%- for topic in site.data.topics -%}
+  {%- assign topic_posts = site.categories[topic.id] -%}
+  <h2 id="{{- topic.id -}}" class="linked-section">
+    <a href="{{ '/board/' | append: topic.id | relative_url }}"><i class="fas fa-folder" aria-hidden="true"></i>&nbsp;{{- topic.name -}}</a>
+    &nbsp;({{ topic_posts.size | default: 0 }})
+  </h2>
+  {% if topic.description %}<p class="text-muted">{{ topic.description }}</p>{% endif %}
+  {% include post-list.html posts=topic_posts %}
+{%- endfor -%}
+</div>
